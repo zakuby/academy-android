@@ -1,0 +1,92 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    defaultConfig {
+        applicationId "com.dicoding.academy"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.compileSdk
+        versionCode versions.code
+        versionName versions.name
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    compileOptions {
+        sourceCompatibility versions.sourceCompat
+        targetCompatibility versions.targetCompat
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation deps.kotlin.stdlib
+    implementation deps.ktx.core
+
+    //Support libs
+    implementation deps.support.appcompat
+    implementation deps.support.material
+    implementation deps.support.constraint
+
+    //Android Architecture Component
+    implementation deps.aac.extensions
+    implementation deps.aac.livedata
+    implementation deps.aac.viewmodel
+//    implementation deps.aac.paging
+//    implementation deps.aac.workmanager
+
+    //Navigation
+//    implementation deps.navigation.runtime
+//    implementation deps.navigation.fragment
+//    implementation deps.navigation.ui
+
+    //Networking
+    implementation deps.network.retrofit
+    implementation deps.network.gson
+    implementation deps.network.okhttp
+
+    //Dagger
+    implementation deps.google.dagger
+    implementation deps.google.dagger_support
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    kapt deps.google.compiler
+    kapt deps.google.processor
+
+    //Room
+//    implementation deps.room.ktx
+//    implementation deps.room.runtime
+//    kapt deps.room.compiler
+
+    implementation deps.others.picasso
+    implementation deps.others.circleimage
+
+    androidTestImplementation deps.test.espresso_core
+    androidTestImplementation deps.test.espresso_contrib
+    androidTestImplementation deps.test.runner
+    androidTestImplementation deps.test.rules
+    androidTestImplementation deps.test.junit_ext
+    androidTestImplementation deps.test.junit
+    testImplementation deps.test.junit
+
+}
